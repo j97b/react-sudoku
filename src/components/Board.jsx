@@ -94,7 +94,10 @@ const Board = () => {
 
 	return (
 		<>
-			<p>Input mode: {inputMode}</p>
+			<p>
+				Input mode: {inputMode} (Press spacebar to change) (Note styling is a
+				work in progress)
+			</p>
 			<div className='board' onKeyDown={handleKeyDown} tabIndex='0'>
 				{board.map((row, rowIdx) => {
 					return row.map((cell, colIdx) => {
