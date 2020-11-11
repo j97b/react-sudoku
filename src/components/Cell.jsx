@@ -5,7 +5,7 @@ const Cell = (props) => {
 	const classes = `cell${props.selected ? " selectedCell" : ""}${
 		(props.column + 1) % 3 === 0 ? " regionRight" : ""
 	}${(props.row + 1) % 3 === 0 ? " regionBottom" : ""}${
-		props.value ? " cellValue" : ""
+		props.value ? " cellValue" : " cellNotes"
 	}`;
 
 	return (

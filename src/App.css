@@ -16,10 +16,16 @@
 	border: 1px solid;
 	box-sizing: border-box;
 }
+
 .cellValue {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.cellNotes {
+	display: grid;
+	grid-template-columns: repeat(9, 0.5em);
 }
 
 .cell > p {
@@ -27,6 +33,10 @@
 	margin-block-end: 0;
 	font-size: 4em;
 	height: 1em;
+}
+
+.cellNotes > p {
+	font-size: 1em;
 }
 
 .regionRight {
