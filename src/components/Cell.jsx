@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Cell = (props) => {
-	const classes = `cell${props.selected ? " selectedCell" : ""}${
-		(props.column + 1) % 3 === 0 ? " regionRight" : ""
-	}${(props.row + 1) % 3 === 0 ? " regionBottom" : ""}${
-		props.value ? " cellNormal" : " cellNotes"
+	const classes = `cell${props.selected ? " selected-cell" : ""}${
+		(props.column + 1) % 3 === 0 ? " region-right" : ""
+	}${(props.row + 1) % 3 === 0 ? " region-bottom" : ""}${
+		props.value ? " cell-normal" : " cell-notes"
 	}`;
 
 	return (
@@ -21,7 +21,7 @@ const Cell = (props) => {
 							return props.notes[key].corner ? <p>{key}</p> : null;
 						})}
 					</div>
-					<div className='centerNotes'>
+					<div className='center-notes'>
 						{Object.keys(props.notes).map((key) => {
 							return props.notes[key].center ? <p>{key}</p> : null;
 						})}
