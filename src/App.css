@@ -11,13 +11,14 @@
 }
 
 .cell {
+	position: relative;
 	height: 5em;
 	width: 5em;
 	border: 1px solid;
 	box-sizing: border-box;
 }
 
-.cellValue {
+.cellNormal {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -27,6 +28,10 @@
 	display: grid;
 	grid-template-columns: repeat(9, 0.5em);
 }
+.cellNotes > div {
+	position: absolute;
+	display: flex;
+}
 
 .cell > p {
 	margin-block-start: 0;
@@ -35,8 +40,17 @@
 	height: 1em;
 }
 
-.cellNotes > p {
+.cellNotes > div > p {
+	width: 0.5em;
 	font-size: 1em;
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+.centerNotes {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .regionRight {

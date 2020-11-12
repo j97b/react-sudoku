@@ -5,7 +5,7 @@ const Cell = (props) => {
 	const classes = `cell${props.selected ? " selectedCell" : ""}${
 		(props.column + 1) % 3 === 0 ? " regionRight" : ""
 	}${(props.row + 1) % 3 === 0 ? " regionBottom" : ""}${
-		props.value ? " cellValue" : " cellNotes"
+		props.value ? " cellNormal" : " cellNotes"
 	}`;
 
 	return (
@@ -15,9 +15,18 @@ const Cell = (props) => {
 			{props.value ? (
 				<p>{props.value}</p>
 			) : (
-				Object.keys(props.notes).map((key) => {
-					return props.notes[key] ? <p>{key}</p> : null;
-				})
+				<>
+					<div>
+						{Object.keys(props.notes).map((key) => {
+							return props.notes[key].corner ? <p>{key}</p> : null;
+						})}
+					</div>
+					<div className='centerNotes'>
+						{Object.keys(props.notes).map((key) => {
+							return props.notes[key].center ? <p>{key}</p> : null;
+						})}
+					</div>
+				</>
 			)}
 		</div>
 	);

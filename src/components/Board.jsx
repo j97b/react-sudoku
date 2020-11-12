@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Cell from "./Cell";
 import boardArray from "../consts/boardArray";
+import inputModes from "../consts/inputModes";
 
 const Board = () => {
 	const [board, setBoard] = useState(boardArray);
 	const [selected, setSelected] = useState({ row: 0, col: 0 });
-	const [inputMode, setInputMode] = useState("value");
+	const [inputMode, setInputMode] = useState(0);
 
 	const handleSelect = (row, column) => {
 		setSelected({ row: row, col: column });
@@ -32,7 +33,7 @@ const Board = () => {
 		});
 	};
 
-	const setCellNote = (value) => {
+	const setNote = (value, position) => {
 		setBoard((prevBoard) => {
 			return prevBoard.map((row, rowIdx) => {
 				if (rowIdx === selected.row) {
@@ -42,7 +43,10 @@ const Board = () => {
 								...cell,
 								notes: {
 									...cell.notes,
-									[value]: !cell.notes[value],
+									[value]: {
+										...cell.notes[value],
+										[position]: !cell.notes[value][position],
+									},
 								},
 							};
 						} else {
@@ -80,13 +84,15 @@ const Board = () => {
 				});
 			default:
 				if (e.keyCode === 32) {
-					setInputMode(inputMode === "value" ? "note" : "value");
+					setInputMode((inputMode + 1) % 3);
 				}
 				if (e.key.match(/[1-9]/) !== null) {
-					if (inputMode === "value") {
+					if (inputMode === 0) {
 						setCellValue(e.key);
-					} else if (inputMode === "note") {
-						setCellNote(e.key);
+					} else if (inputMode === 1) {
+						setNote(e.key, "corner");
+					} else if (inputMode === 2) {
+						setNote(e.key, "center");
 					}
 				}
 		}
@@ -94,10 +100,7 @@ const Board = () => {
 
 	return (
 		<>
-			<p>
-				Input mode: {inputMode} (Press spacebar to change) (Note styling is a
-				work in progress)
-			</p>
+			<p>Input mode: {inputModes[inputMode]} (Press spacebar to change)</p>
 			<div className='board' onKeyDown={handleKeyDown} tabIndex='0'>
 				{board.map((row, rowIdx) => {
 					return row.map((cell, colIdx) => {

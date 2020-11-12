@@ -1,15 +1,15 @@
 const cellObject = {
 	value: null,
 	notes: {
-		1: false,
-		2: false,
-		3: false,
-		4: false,
-		5: false,
-		6: false,
-		7: false,
-		8: false,
-		9: false,
+		1: { corner: false, center: false },
+		2: { corner: false, center: false },
+		3: { corner: false, center: false },
+		4: { corner: false, center: false },
+		5: { corner: false, center: false },
+		6: { corner: false, center: false },
+		7: { corner: false, center: false },
+		8: { corner: false, center: false },
+		9: { corner: false, center: false },
 	},
 };
 
