@@ -18,12 +18,12 @@ const Cell = (props) => {
 				<>
 					<div>
 						{Object.keys(props.notes).map((key) => {
-							return props.notes[key].corner ? <p>{key}</p> : null;
+							return props.notes[key].corner ? <p key={key}>{key}</p> : null;
 						})}
 					</div>
 					<div className='center-notes'>
 						{Object.keys(props.notes).map((key) => {
-							return props.notes[key].center ? <p>{key}</p> : null;
+							return props.notes[key].center ? <p key={key}>{key}</p> : null;
 						})}
 					</div>
 				</>

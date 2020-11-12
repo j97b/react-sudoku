@@ -125,7 +125,7 @@ const Board = () => {
 				</div>
 				<ControlPad
 					handleNumberInput={inputNumber}
-					setMode={(mode) => setInputMode(mode)}
+					setMode={(mode) => setInputMode(parseInt(mode))}
 				/>
 			</div>
 		</>
