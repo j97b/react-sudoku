@@ -9,47 +9,30 @@ const Board = () => {
 	const [selected, setSelected] = useState({ row: 0, col: 0 });
 	const [inputMode, setInputMode] = useState(0);
 
-	const handleSelect = (row, column) => {
-		setSelected({ row: row, col: column });
-	};
-
 	const setCellValue = (value) => {
 		setBoard((prevBoard) => {
 			return prevBoard.map((row, rowIdx) => {
 				if (rowIdx === selected.row) {
 					return row.map((cell, colIdx) => {
 						if (colIdx === selected.col) {
-							return {
-								...cell,
-								value: cell.value === parseInt(value) ? null : parseInt(value),
-							};
-						} else {
-							return cell;
-						}
-					});
-				} else {
-					return row;
-				}
-			});
-		});
-	};
-
-	const setNote = (value, position) => {
-		setBoard((prevBoard) => {
-			return prevBoard.map((row, rowIdx) => {
-				if (rowIdx === selected.row) {
-					return row.map((cell, colIdx) => {
-						if (colIdx === selected.col) {
-							return {
-								...cell,
-								notes: {
-									...cell.notes,
-									[value]: {
-										...cell.notes[value],
-										[position]: !cell.notes[value][position],
-									},
-								},
-							};
+							return inputMode === 0
+								? {
+										...cell,
+										value:
+											cell.value === parseInt(value) ? null : parseInt(value),
+								  }
+								: {
+										...cell,
+										notes: {
+											...cell.notes,
+											[value]: {
+												...cell.notes[value],
+												[inputModes[inputMode]]: !cell.notes[value][
+													inputModes[inputMode]
+												],
+											},
+										},
+								  };
 						} else {
 							return cell;
 						}
@@ -88,18 +71,8 @@ const Board = () => {
 					setInputMode((inputMode + 1) % 3);
 				}
 				if (e.key.match(/[1-9]/) !== null) {
-					inputNumber(e.key);
+					setCellValue(e.key);
 				}
-		}
-	};
-
-	const inputNumber = (value) => {
-		if (inputMode === 0) {
-			setCellValue(value);
-		} else if (inputMode === 1) {
-			setNote(value, "corner");
-		} else if (inputMode === 2) {
-			setNote(value, "center");
 		}
 	};
 
@@ -116,7 +89,9 @@ const Board = () => {
 									notes={cell.notes}
 									row={rowIdx}
 									column={colIdx}
-									handleSelect={handleSelect}
+									handleSelect={(row, column) => {
+										setSelected({ row: row, col: column });
+									}}
 									selected={rowIdx === selected.row && colIdx === selected.col}
 								/>
 							);
@@ -124,7 +99,7 @@ const Board = () => {
 					})}
 				</div>
 				<ControlPad
-					handleNumberInput={inputNumber}
+					handleNumberInput={setCellValue}
 					setMode={(mode) => setInputMode(parseInt(mode))}
 				/>
 			</div>

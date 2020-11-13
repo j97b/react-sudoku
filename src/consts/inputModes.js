@@ -1,3 +1,3 @@
-const inputModes = ["normal", "corner notes", "center notes"];
+const inputModes = ["normal", "corner", "center"];
 
 export default inputModes;
