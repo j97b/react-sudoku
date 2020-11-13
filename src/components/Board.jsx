@@ -45,6 +45,7 @@ const Board = () => {
 	};
 
 	const handleKeyDown = (e) => {
+		console.log(e.key);
 		switch (e.key) {
 			case "ArrowUp":
 				return setSelected({
@@ -66,12 +67,11 @@ const Board = () => {
 					row: selected.row,
 					col: selected.col === 0 ? selected.col : selected.col - 1,
 				});
+			case " ":
+				return setInputMode((inputMode + 1) % 3);
 			default:
-				if (e.keyCode === 32) {
-					setInputMode((inputMode + 1) % 3);
-				}
 				if (e.key.match(/[1-9]/) !== null) {
-					setCellValue(e.key);
+					return setCellValue(e.key);
 				}
 		}
 	};
