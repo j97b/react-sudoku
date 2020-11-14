@@ -1,49 +1,74 @@
 import React from "react";
-import PropTypes from "prop-types";
+import RippleButton from "./RippleButton";
 
 const ControlPad = (props) => {
 	return (
 		<div className='control-pad'>
-			<button name={0} onClick={(e) => props.setMode(e.target.name)}>
+			<RippleButton
+				name={0}
+				handleClick={(e) => props.setInputMode(e.target.name)}
+				selected={props.inputMode === 0 ? true : false}>
 				Normal
-			</button>
-			<button name={1} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={1}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				1
-			</button>
-			<button name={2} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={2}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				2
-			</button>
-			<button name={3} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={3}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				3
-			</button>
-			<button name={1} onClick={(e) => props.setMode(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={1}
+				handleClick={(e) => props.setInputMode(e.target.name)}
+				selected={props.inputMode === 1 ? true : false}>
 				Corner Notes
-			</button>
-			<button name={4} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={4}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				4
-			</button>
-			<button name={5} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={5}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				5
-			</button>
-			<button name={6} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={6}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				6
-			</button>
-			<button name={2} onClick={(e) => props.setMode(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={2}
+				handleClick={(e) => props.setInputMode(e.target.name)}
+				selected={props.inputMode === 2 ? true : false}>
 				Center Notes
-			</button>
-			<button name={7} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={7}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				7
-			</button>
-			<button name={8} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={8}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				8
-			</button>
-			<button name={9} onClick={(e) => props.handleNumberInput(e.target.name)}>
+			</RippleButton>
+			<RippleButton
+				name={9}
+				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				9
-			</button>
+			</RippleButton>
 		</div>
 	);
 };
-
-ControlPad.propTypes = {};
 
 export default ControlPad;

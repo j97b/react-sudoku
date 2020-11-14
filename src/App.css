@@ -64,6 +64,11 @@
 .selected-cell {
 	background-color: #4242428a;
 }
+
+.selected-mode {
+	background-color: #a9a9a9;
+}
+
 .game-root {
 	display: flex;
 	align-items: center;
@@ -75,4 +80,33 @@
 	grid-row-gap: 1em;
 	grid-column-gap: 1em;
 	margin-left: 6em;
+}
+
+.number-button {
+	font-size: xx-large;
+}
+
+.my-button {
+	font-family: "Cousine";
+	border-radius: 10px;
+	border-width: 2px;
+	border-style: solid;
+	width: 100%;
+}
+
+.my-button:focus {
+	outline: none;
+}
+
+.my-button:hover {
+	cursor: pointer;
+	background-color: #d3d3d3;
+}
+
+.selected-mode:hover {
+	background-color: #a9a9a9;
+}
+
+.ripple-container {
+	border-radius: 10px;
 }

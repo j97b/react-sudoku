@@ -5,7 +5,6 @@ import Board from "./components/Board";
 const App = () => {
 	return (
 		<div className='App'>
-			<p>Hi</p>
 			<Board />
 		</div>
 	);

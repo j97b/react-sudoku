@@ -78,7 +78,6 @@ const Board = () => {
 
 	return (
 		<>
-			<p>Input mode: {inputModes[inputMode]} (Press spacebar to change)</p>
 			<div className='game-root'>
 				<div className='board' onKeyDown={handleKeyDown} tabIndex='0'>
 					{board.map((row, rowIdx) => {
@@ -100,7 +99,8 @@ const Board = () => {
 				</div>
 				<ControlPad
 					handleNumberInput={setCellValue}
-					setMode={(mode) => setInputMode(parseInt(mode))}
+					setInputMode={(mode) => setInputMode(parseInt(mode))}
+					inputMode={inputMode}
 				/>
 			</div>
 		</>
