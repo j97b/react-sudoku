@@ -67,6 +67,9 @@ const ControlPad = (props) => {
 				handleClick={(e) => props.handleNumberInput(e.target.name)}>
 				9
 			</RippleButton>
+			<RippleButton name='' handleClick={props.clearCell}>
+				Clear Cell
+			</RippleButton>
 		</div>
 	);
 };

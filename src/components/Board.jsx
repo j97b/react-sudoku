@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Cell from "./Cell";
-import boardArray from "../consts/boardArray";
+import { boardArray, cellObject } from "../consts/boardArray";
 import inputModes from "../consts/inputModes";
 import ControlPad from "./ControlPad";
 
@@ -9,12 +9,15 @@ const Board = () => {
 	const [selected, setSelected] = useState({ row: 0, col: 0 });
 	const [inputMode, setInputMode] = useState(0);
 
-	const setCellValue = (value) => {
+	const setCellValue = (value, clear) => {
 		setBoard((prevBoard) => {
 			return prevBoard.map((row, rowIdx) => {
 				if (rowIdx === selected.row) {
 					return row.map((cell, colIdx) => {
 						if (colIdx === selected.col) {
+							if (clear) {
+								return cellObject;
+							}
 							return inputMode === 0
 								? {
 										...cell,
@@ -44,8 +47,9 @@ const Board = () => {
 		});
 	};
 
+	const clearCell = () => setCellValue(undefined, true);
+
 	const handleKeyDown = (e) => {
-		console.log(e.key);
 		switch (e.key) {
 			case "ArrowUp":
 				return setSelected({
@@ -69,6 +73,8 @@ const Board = () => {
 				});
 			case " ":
 				return setInputMode((inputMode + 1) % 3);
+			case "c":
+				return clearCell();
 			default:
 				if (e.key.match(/[1-9]/) !== null) {
 					return setCellValue(e.key);
@@ -101,6 +107,7 @@ const Board = () => {
 					handleNumberInput={setCellValue}
 					setInputMode={(mode) => setInputMode(parseInt(mode))}
 					inputMode={inputMode}
+					clearCell={clearCell}
 				/>
 			</div>
 		</>

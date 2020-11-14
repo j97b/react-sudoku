@@ -1,4 +1,4 @@
-const cellObject = {
+export const cellObject = {
 	value: null,
 	notes: {
 		1: { corner: false, center: false },
@@ -13,7 +13,7 @@ const cellObject = {
 	},
 };
 
-const boardArray = [
+export const boardArray = [
 	[
 		cellObject,
 		cellObject,
@@ -114,5 +114,3 @@ const boardArray = [
 		cellObject,
 	],
 ];
-
-export default boardArray;
