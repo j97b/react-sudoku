@@ -90,6 +90,7 @@ const Board = () => {
 						return row.map((cell, colIdx) => {
 							return (
 								<Cell
+									key={`${rowIdx}${colIdx}`}
 									value={cell.value}
 									notes={cell.notes}
 									row={rowIdx}

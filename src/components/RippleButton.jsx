@@ -6,7 +6,7 @@ const RippleButton = (props) => {
 	return (
 		<Ripples className='ripple-container'>
 			<button
-				name={parseInt(props.name)}
+				name={parseInt(props.name) || props.name}
 				className={classes}
 				onClick={(e) => props.handleClick(e)}>
 				{props.children}
