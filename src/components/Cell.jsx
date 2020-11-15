@@ -6,7 +6,7 @@ const Cell = (props) => {
 		(props.column + 1) % 3 === 0 ? " region-right" : ""
 	}${(props.row + 1) % 3 === 0 ? " region-bottom" : ""}${
 		props.value ? " cell-normal" : " cell-notes"
-	}`;
+	}${props.prefilled ? " prefilled" : ""}`;
 
 	return (
 		<div

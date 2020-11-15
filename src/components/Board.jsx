@@ -14,7 +14,7 @@ const Board = () => {
 			return prevBoard.map((row, rowIdx) => {
 				if (rowIdx === selected.row) {
 					return row.map((cell, colIdx) => {
-						if (colIdx === selected.col) {
+						if (colIdx === selected.col && !cell.prefilled) {
 							if (clear) {
 								return cellObject;
 							}
@@ -49,27 +49,33 @@ const Board = () => {
 
 	const clearCell = () => setCellValue(undefined, true);
 
+	const modulusCalc = (n, m) => {
+		return ((n % m) + m) % m;
+	};
+
 	const handleKeyDown = (e) => {
+		console.log(e);
+		e.preventDefault();
 		switch (e.key) {
 			case "ArrowUp":
 				return setSelected({
-					row: selected.row === 0 ? selected.row : selected.row - 1,
+					row: modulusCalc(selected.row - 1, 9),
 					col: selected.col,
 				});
 			case "ArrowDown":
 				return setSelected({
-					row: selected.row === 8 ? selected.row : selected.row + 1,
+					row: modulusCalc(selected.row + 1, 9),
 					col: selected.col,
 				});
 			case "ArrowRight":
 				return setSelected({
 					row: selected.row,
-					col: selected.col === 8 ? selected.col : selected.col + 1,
+					col: modulusCalc(selected.col + 1, 9),
 				});
 			case "ArrowLeft":
 				return setSelected({
 					row: selected.row,
-					col: selected.col === 0 ? selected.col : selected.col - 1,
+					col: modulusCalc(selected.col - 1, 9),
 				});
 			case " ":
 				return setInputMode((inputMode + 1) % 3);
@@ -84,8 +90,8 @@ const Board = () => {
 
 	return (
 		<>
-			<div className='game-root'>
-				<div className='board' onKeyDown={handleKeyDown} tabIndex='0'>
+			<div className='game-root' onKeyDown={handleKeyDown}>
+				<div className='board' tabIndex='0'>
 					{board.map((row, rowIdx) => {
 						return row.map((cell, colIdx) => {
 							return (
@@ -99,6 +105,7 @@ const Board = () => {
 										setSelected({ row: row, col: column });
 									}}
 									selected={rowIdx === selected.row && colIdx === selected.col}
+									prefilled={cell.prefilled}
 								/>
 							);
 						});

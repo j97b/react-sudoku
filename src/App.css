@@ -18,6 +18,11 @@
 	box-sizing: border-box;
 }
 
+.cell:hover {
+	cursor: pointer;
+	background-color: #42424261;
+}
+
 .cell-normal {
 	display: flex;
 	justify-content: center;
@@ -109,4 +114,8 @@
 
 .ripple-container {
 	border-radius: 10px;
+}
+
+.prefilled {
+	font-weight: bold;
 }
