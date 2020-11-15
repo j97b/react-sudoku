@@ -123,3 +123,7 @@
 .prefilled {
 	font-weight: bold;
 }
+
+.conflict > p {
+	color: #b41010;
+}

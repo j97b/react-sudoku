@@ -12,6 +12,7 @@ export const cellObject = {
 		9: { corner: false, center: false },
 	},
 	prefilled: false,
+	conflict: false,
 };
 const prefilledCell = (value) => {
 	return {
@@ -28,12 +29,13 @@ const prefilledCell = (value) => {
 			9: { corner: false, center: false },
 		},
 		prefilled: true,
+		conflict: false,
 	};
 };
 
 export const boardArray = [
 	[
-		prefilledCell(1),
+		cellObject,
 		cellObject,
 		cellObject,
 		cellObject,

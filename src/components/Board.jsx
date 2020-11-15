@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 import { boardArray, cellObject } from "../consts/boardArray";
 import inputModes from "../consts/inputModes";
@@ -8,9 +8,16 @@ const Board = () => {
 	const [board, setBoard] = useState(boardArray);
 	const [selected, setSelected] = useState({ row: 0, col: 0 });
 	const [inputMode, setInputMode] = useState(0);
+	const [win, setWin] = useState(false);
+	const [updater, setUpdater] = useState(0);
 
-	const setCellValue = (value, clear) => {
-		setBoard((prevBoard) => {
+	useEffect(() => {
+		updateCellConflicts();
+		updateGameState();
+	}, [updater]);
+
+	const setCellValue = async (value, clear) => {
+		await setBoard((prevBoard) => {
 			return prevBoard.map((row, rowIdx) => {
 				if (rowIdx === selected.row) {
 					return row.map((cell, colIdx) => {
@@ -45,6 +52,96 @@ const Board = () => {
 				}
 			});
 		});
+		setUpdater(updater + 1);
+	};
+
+	const updateGameState = () => {
+		setWin(filledCells() === 81 && boardHasNoConflicts());
+	};
+
+	const filledCells = () => {
+		let count = 0;
+		board.forEach((row) => {
+			row.forEach((cell) => {
+				if (cell.value) {
+					count++;
+				}
+			});
+		});
+		return count;
+	};
+
+	const boardHasNoConflicts = () => {
+		let bool = true;
+		board.forEach((row) => {
+			row.forEach((cell) => {
+				if (cell.conflict === true) {
+					bool = false;
+				}
+			});
+		});
+		return bool;
+	};
+
+	const updateCellConflicts = () => {
+		setBoard((prevBoard) => {
+			return prevBoard.map((row, rowIdx) => {
+				return row.map((cell, colIdx) => {
+					return rowConflict(cell, rowIdx, colIdx) ||
+						colConflict(cell, rowIdx, colIdx) ||
+						regionConflict(cell, rowIdx, colIdx)
+						? {
+								...cell,
+								conflict: true,
+						  }
+						: {
+								...cell,
+								conflict: false,
+						  };
+				});
+			});
+		});
+	};
+
+	const rowConflict = (cell, rowIdx, colIdx) => {
+		for (let col = 0; col < 9; col++) {
+			if (
+				col !== colIdx &&
+				cell.value === board[rowIdx][col].value &&
+				cell.value !== null
+			) {
+				return true;
+			}
+		}
+	};
+
+	const colConflict = (cell, rowIdx, colIdx) => {
+		for (let row = 0; row < 9; row++) {
+			if (
+				row !== rowIdx &&
+				cell.value === board[row][colIdx].value &&
+				cell.value !== null
+			) {
+				return true;
+			}
+		}
+	};
+
+	const regionConflict = (cell, rowIdx, colIdx) => {
+		const startRow = rowIdx - (rowIdx % 3);
+		const startCol = colIdx - (colIdx % 3);
+		for (let row = startRow; row < startRow + 3; row++) {
+			for (let col = startCol; col < startCol + 3; col++) {
+				if (
+					row !== rowIdx &&
+					col !== colIdx &&
+					cell.value !== null &&
+					cell.value === board[row][col].value
+				) {
+					return true;
+				}
+			}
+		}
 	};
 
 	const clearCell = () => setCellValue(undefined, true);
@@ -105,6 +202,7 @@ const Board = () => {
 									}}
 									selected={rowIdx === selected.row && colIdx === selected.col}
 									prefilled={cell.prefilled}
+									conflict={cell.conflict}
 								/>
 							);
 						});
@@ -117,6 +215,9 @@ const Board = () => {
 					clearCell={clearCell}
 				/>
 			</div>
+			<button onClick={() => console.log(boardHasNoConflicts(), filledCells())}>
+				fn test
+			</button>
 		</>
 	);
 };
