@@ -54,7 +54,6 @@ const Board = () => {
 	};
 
 	const handleKeyDown = (e) => {
-		console.log(e);
 		e.preventDefault();
 		switch (e.key) {
 			case "ArrowUp":
